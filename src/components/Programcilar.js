@@ -11,7 +11,7 @@ Aynı zaman içinde yalnız bir harika programcıyı öne çıkarabiliriz.
 Yorumları takip edin.
 */
 
-import React from 'react';
+import React, {useState} from 'react';
 /* ADIM 0  */
 
 
@@ -30,6 +30,8 @@ export const enIyilerListesi = [
 export default function Programcilar() {
   // İki state dilimine ihtiyacımız olduğundan, state hooku iki kez kullanmamız gerekecek..
   // Bir yanda programcılar listesi, diğer yanda öne çıkan programcının idsi.
+  const [programciListesi,setProgramciListesi]=useState(enIyilerListesi);
+  const [programciId,setProgramciId]=useState(null);
 
 	
   const oneCikaninIsmi = () => {
@@ -43,7 +45,7 @@ export default function Programcilar() {
   const stil = {
     fontSize: '1.5em',
     marginTop: '0.5em',
-    color: 'royalblue', // 🤔 kutlarken renk gold'a dönecek
+    color: programciId===null ? 'royalblue':'gold' ,// 🤔 kutlarken renk gold'a dönecek
   };
 
   return (
@@ -55,9 +57,14 @@ export default function Programcilar() {
           // Şöyle diyebiliriz: "aa bu çalışıyor!" Ama programcilar bir state diliminden gelmiyorsa,
           // asla yeni programci ekleyemeyiz, programcilari düzenleyemeyiz ya da silemeyiz. Düzeltin!
           " */
-          enIyilerListesi.map(dev =>
+          programciListesi.map(dev =>
             <div className='programmer' key={dev.id}>
-              {dev.isim} <button onClick={() => {/* burada dev.id 'yi öne çıkan id'ye atayın */ }}>Kutla</button>
+              {dev.isim} <button 
+              onClick={() => {
+                setProgramciId(dev.id)
+                /* burada dev.id 'yi öne çıkan id'ye atayın */ }}
+                >Kutla
+                </button>
             </div>
           )
         }
